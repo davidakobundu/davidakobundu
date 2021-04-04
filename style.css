@@ -1,0 +1,60 @@
+body{
+    background-color: white;
+}
+
+#container {
+    height: 450px;
+    width: 300px;
+    border: 10px solid lightblue;
+    margin: 50px auto;
+    margin-top: 50px;
+    background-color: lightblue;
+    
+}
+
+#Attempt {
+    height: 40px;
+    width: 100px;
+    margin: Auto;
+    margin-top: 20px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: white;
+    font-size: xx-large;
+}
+
+#Score {
+    height: 40px;
+    width: 100px;
+    margin: Auto;
+    margin-top: 20px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: white;
+    font-size: xx-large;
+}
+
+#Success {
+    height: 50px;
+    width: 70px;
+    margin-top: 20px;
+    margin-left: 60px;
+    color: white;
+}
+
+#Fail {
+    height: 50px;
+    width: 70px;
+    margin-top: 20px;
+    margin-left: 40px;
+    color: white;
+    
+}
+
+#Result{
+    height: 45px;
+    width: 100px;
+    margin-top: 60px;
+    margin-left: 100px;
+    color: black;
+}

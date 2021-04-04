@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.19.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.15.1"></script>
+
+    <style media="screen">
+        /* Add space between Vega-Embed links  */
+        .vega-actions a {
+          margin-right: 500px;
+        }
+      </style>
+
+    <style>
+        ul{
+            padding-left: 0;
+        }
+        body{
+            font-family: Arial, Arial, Helvetica, sans-serif;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .d-block{
+            display: block;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Your Scores</h1>
+
+    <ul>
+
+    </ul>
+
+    <a href="./index.html"><button>New Session</button></a>
+    <a href="./BarChartViz.html"><button>Bar Chart</button></a>
+
+
+    <script>
+        const TrainingScores = document.querySelector('ul');
+        let scores = JSON.parse(localStorage.getItem("TrainingScores")) || [];
+
+        function createListItem(content){
+            const li = document.createElement('li');
+            li.textContent = content;
+            return li;
+        }
+
+        for(let i = 0; i < scores.length; i++){
+            const score = scores[i];
+
+            const li = createListItem('Session ' + String(i + 1) + ': ' + score + '/10');
+            TrainingScores.appendChild(li);
+        }
+
+    </script>
+
+    <!-- Container for the visualization -->
+    <div id="vis"></div>
+
+    <script>
+      // Assign the specification to a local variable vlSpec.
+      var vlSpec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "My bar chart visualization.",
+  "layer": [{
+      "data": {
+      "values": [
+      {"Session": "S1", "b": scores[0]}, {"Session": "S2", "b": scores[1]}, {"Session": "S3", "b": scores[2]},
+      {"Session": "S4", "b": scores[3]}, {"Session": "S5", "b": scores[4]}, {"Session": "S6", "b": scores[5]},
+      {"Session": "S7", "b": scores[6]}, {"Session": "S8", "b": scores[7]}, {"Session": "S9", "b": scores[8]}
+    ]
+  },
+      "layer": [{
+        "mark": {
+            "type": "line",
+            "point": true
+        },
+        
+  "encoding": {
+    "x": {"field": "Session", "type": "ordinal", "axis": {"labelAngle": 0}},
+    "y": {"field": "b", "type": "quantitative"},
+    "color": {"value": "green"}
+  }
+      }, {
+        "mark": "bar",
+        "transform": [
+          {"filter": "datum.Value >= 10"},
+          {"calculate": "10", "as": "baseline"}
+        ],
+        "encoding": {
+          "x": {"field": "", "type": "ordinal"},
+          "y": {"field": "baseline", "type": "quantitative", "title": "Score"},
+          "y2": {"field": "Value"},
+          "color": {"value": "red"}
+        }
+      }
+    ]}, {
+      "data": {
+         "values": [{}]
+      },
+      "encoding": {
+        "y": {"datum": 10}
+      },
+      "layer": [{
+        "mark": "rule"
+      }, {
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "bottom",
+          "dx": -2,
+          "dy": -2,
+          "x": "width",
+          "text": ""
+        }
+      }]
+    }
+  ]
+
+      };
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed('#vis', vlSpec);
+    </script>
+    
+</body>
+</html>
